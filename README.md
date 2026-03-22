@@ -74,7 +74,7 @@ A full-stack web application designed to streamline the management of speech the
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 speech-therapy-system/
@@ -99,7 +99,7 @@ speech-therapy-system/
 
 ##  Installation & Setup
 
-### 1️⃣ Clone the repository
+###  Clone the repository
 
 ```bash
 git clone https://github.com/your-username/speech-therapy-system.git
@@ -108,7 +108,7 @@ cd speech-therapy-system
 
 ---
 
-### 2️⃣ Setup Backend
+###  Setup Backend
 
 ```bash
 cd backend
@@ -118,7 +118,7 @@ npm run dev
 
 ---
 
-### 3️⃣ Setup Frontend
+###  Setup Frontend
 
 ```bash
 cd frontend
@@ -128,7 +128,7 @@ npm run dev
 
 ---
 
-### 4️⃣ Environment Variables
+###  Environment Variables
 
 Create a `.env` file in backend:
 
@@ -140,7 +140,7 @@ JWT_SECRET=your_secret_key
 
 ---
 
-## 🔐 API Endpoints (Sample)
+##  API Endpoints (Sample)
 
 | Method | Endpoint    | Description      |
 | ------ | ----------- | ---------------- |
@@ -152,7 +152,7 @@ JWT_SECRET=your_secret_key
 
 ---
 
-## 🧪 Testing
+##  Testing
 
 * Manual testing of APIs using Postman
 * Unit and integration testing for backend
@@ -160,7 +160,7 @@ JWT_SECRET=your_secret_key
 
 ---
 
-## ⚠️ Challenges Faced
+##  Challenges Faced
 
 * Handling CORS issues between frontend and backend
 * Managing JWT authentication securely
@@ -169,7 +169,7 @@ JWT_SECRET=your_secret_key
 
 ---
 
-## 📌 Future Enhancements
+##  Future Enhancements
 
 * Real-time session tracking
 * AI-based speech analysis
@@ -178,20 +178,20 @@ JWT_SECRET=your_secret_key
 
 ---
 
-## 👨‍💻 Author
+##  Author
 
 **Priyan Sakthivel**
 Full Stack Developer
 
 ---
 
-## 📜 License
+##  License
 
 This project is for educational purposes.
 
 ---
 
-## ⭐ Acknowledgements
+##  Acknowledgements
 
 * Open-source community
 * Online tutorials and documentation
