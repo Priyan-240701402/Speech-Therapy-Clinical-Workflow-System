@@ -1,5 +1,5 @@
 
-  # Speech-Language Therapy clinical workflow system
+  # Speech-Language Therapy Clinical Workflow System
 
   This is a code bundle for Speech-Language Therapy Software.
 
