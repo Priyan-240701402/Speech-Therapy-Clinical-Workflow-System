@@ -1,4 +1,4 @@
-# Speech Therapy Management System
+# Speech Therapy Clinical Workflow System
 
 A full-stack web application designed to streamline the management of speech therapy patients, therapists, sessions, and reports. The system enables efficient coordination between **Admins, Supervisors, and Therapists** with role-based access control.
 
