@@ -1,0 +1,23 @@
+{
+  "name": "speech-therapy-backend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node index.js",
+    "seed": "node seed.js",
+    "migrate:therapists": "node migrate-therapist-assignments.js",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "bcryptjs": "2.4.3",
+    "cors": "2.8.5",
+    "dotenv": "16.4.7",
+    "express": "4.21.2",
+    "jsonwebtoken": "9.0.2",
+    "pg": "8.12.0"
+  },
+  "devDependencies": {
+    "supertest": "7.1.4",
+    "vitest": "3.2.4"
+  }
+}
