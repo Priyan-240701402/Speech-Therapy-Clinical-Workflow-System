@@ -1,7 +1,7 @@
 
-  # Speech-Language Therapy Dashboard
+  # Speech-Language Therapy clinical workflow system
 
-  This is a code bundle for Speech-Language Therapy Dashboard. The original project is available at https://www.figma.com/design/RqxAXpd2x6Se0BOvSkRqZh/Speech-Language-Therapy-Dashboard.
+  This is a code bundle for Speech-Language Therapy Software.
 
   ## Running the code
 
