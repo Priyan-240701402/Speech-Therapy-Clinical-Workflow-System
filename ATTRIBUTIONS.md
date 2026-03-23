@@ -1,6 +1,6 @@
 
 
-This project was developed as part of a full-stack web development learning process.
+This project was developed as part of software construction learning process.
 
 It is inspired by standard healthcare management systems and speech therapy workflows. The implementation references official documentation of React.js, Node.js, Express.js, database systems, and JWT authentication.
 
