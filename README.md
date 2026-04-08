@@ -84,7 +84,7 @@ speech-therapy-system/
 │   ├── components/
 │   └── pages/
 │
-├── backend/
+├── server/
 │   ├── controllers/
 │   ├── routes/
 │   ├── models/
@@ -111,7 +111,7 @@ cd speech-therapy-system
 ###  Setup Backend
 
 ```bash
-cd backend
+cd server
 npm install
 npm run dev
 ```
@@ -121,7 +121,7 @@ npm run dev
 ###  Setup Frontend
 
 ```bash
-cd frontend
+cd speech-therapy
 npm install
 npm run dev
 ```
