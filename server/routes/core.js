@@ -5,6 +5,8 @@ import { requireAuth, requireRole } from "../middleware.js";
 import { asyncHandler, parsePagination } from "../lib/http.js";
 import { JWT_SECRET, JWT_EXPIRES_IN } from "../config.js";
 
+const PASSWORD_MIN_LENGTH = 8;
+
 export const registerCoreRoutes = (app, { dbPromise }) => {
   app.get("/", (req, res) => {
     res.json({ ok: true, service: "speech-therapy-backend" });
@@ -19,7 +21,7 @@ export const registerCoreRoutes = (app, { dbPromise }) => {
     await dbPromise;
     const db = getDb();
     const result = await db.query(
-      "SELECT id, username, display_name AS \"displayName\", password_hash, role FROM users WHERE username = $1",
+      "SELECT id, username, display_name AS \"displayName\", password_hash, role FROM users WHERE LOWER(username) = LOWER($1)",
       [username]
     );
     const user = result.rows[0];
@@ -47,6 +49,70 @@ export const registerCoreRoutes = (app, { dbPromise }) => {
         role: user.role,
       },
     });
+  }));
+
+  app.post("/auth/forgot-password", asyncHandler(async (req, res) => {
+    const username = String(req.body?.username || "").trim();
+    const dateOfBirth = String(req.body?.dateOfBirth || "").trim();
+    if (!username || !dateOfBirth) {
+      return res.status(400).json({ error: "Username and date of birth are required" });
+    }
+
+    await dbPromise;
+    const db = getDb();
+    const userResult = await db.query(
+      `SELECT id
+       FROM users
+       WHERE LOWER(username) = LOWER($1)
+         AND date_of_birth = $2::date`,
+      [username, dateOfBirth]
+    );
+    const user = userResult.rows[0];
+    if (!user) {
+      return res.status(400).json({ error: "Username and date of birth do not match" });
+    }
+
+    return res.json({
+      message: "Identity verified. You can now reset your password.",
+    });
+  }));
+
+  app.post("/auth/reset-password", asyncHandler(async (req, res) => {
+    const username = String(req.body?.username || "").trim();
+    const dateOfBirth = String(req.body?.dateOfBirth || "").trim();
+    const newPassword = String(req.body?.newPassword || "");
+
+    if (!username || !dateOfBirth || !newPassword) {
+      return res.status(400).json({
+        error: "Username, date of birth, and new password are required",
+      });
+    }
+
+    if (newPassword.length < PASSWORD_MIN_LENGTH) {
+      return res.status(400).json({
+        error: `Password must be at least ${PASSWORD_MIN_LENGTH} characters`,
+      });
+    }
+
+    await dbPromise;
+    const db = getDb();
+
+    const userResult = await db.query(
+      `SELECT id
+       FROM users
+       WHERE LOWER(username) = LOWER($1)
+         AND date_of_birth = $2::date`,
+      [username, dateOfBirth]
+    );
+    const user = userResult.rows[0];
+    if (!user) {
+      return res.status(400).json({ error: "Username and date of birth do not match" });
+    }
+
+    const passwordHash = await bcrypt.hash(newPassword, 10);
+    await db.query("UPDATE users SET password_hash = $1 WHERE id = $2", [passwordHash, user.id]);
+
+    return res.json({ message: "Password reset successful. You can sign in now." });
   }));
 
   app.get("/me", requireAuth, (req, res) => {

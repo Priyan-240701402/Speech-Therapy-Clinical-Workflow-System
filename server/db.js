@@ -36,6 +36,7 @@ export async function initDb() {
       id SERIAL PRIMARY KEY,
       username TEXT UNIQUE NOT NULL,
       display_name TEXT,
+      date_of_birth DATE,
       password_hash TEXT NOT NULL,
       role TEXT NOT NULL CHECK (role IN ('admin', 'therapist', 'supervisor')),
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -44,7 +45,8 @@ export async function initDb() {
 
   await db.query(`
     ALTER TABLE users
-      ADD COLUMN IF NOT EXISTS display_name TEXT;
+      ADD COLUMN IF NOT EXISTS display_name TEXT,
+      ADD COLUMN IF NOT EXISTS date_of_birth DATE;
   `);
 
   await db.query(`
@@ -187,6 +189,7 @@ export async function initDb() {
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     );
   `);
+
 
   await db.query(`
     CREATE INDEX IF NOT EXISTS idx_patients_status

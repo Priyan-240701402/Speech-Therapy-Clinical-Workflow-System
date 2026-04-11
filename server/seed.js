@@ -5,36 +5,41 @@ import { initDb, getDb } from "./db.js";
 dotenv.config();
 
 const seedUsers = [
-  { username: "admin01", password: "Admin@123", role: "admin", displayName: "System Admin" },
+  { username: "admin01", password: "Admin@123", role: "admin", displayName: "System Admin", dateOfBirth: "1990-01-15" },
   {
     username: "emily_therapist",
     password: "Therapist@1",
     role: "therapist",
     displayName: "Dr. Emily Roberts",
+    dateOfBirth: "1992-03-08",
   },
   {
     username: "james_therapist",
     password: "Therapist@2",
     role: "therapist",
     displayName: "Dr. James Wilson",
+    dateOfBirth: "1989-07-21",
   },
   {
     username: "sarah_therapist",
     password: "Therapist@3",
     role: "therapist",
     displayName: "Dr. Sarah Anderson",
+    dateOfBirth: "1991-11-30",
   },
   {
     username: "michael_therapist",
     password: "Therapist@4",
     role: "therapist",
     displayName: "Dr. Michael Thompson",
+    dateOfBirth: "1988-05-12",
   },
   {
     username: "supervisor01",
     password: "Supervisor@123",
     role: "supervisor",
     displayName: "Clinical Supervisor",
+    dateOfBirth: "1985-09-03",
   },
 ];
 
@@ -49,12 +54,16 @@ const run = async () => {
       [user.username]
     );
     if (existing.rows.length > 0) {
+      await db.query(
+        "UPDATE users SET date_of_birth = COALESCE(date_of_birth, $1::date) WHERE username = $2",
+        [user.dateOfBirth, user.username]
+      );
       continue;
     }
     const passwordHash = await bcrypt.hash(user.password, SALT_ROUNDS);
     await db.query(
-      "INSERT INTO users (username, display_name, password_hash, role) VALUES ($1, $2, $3, $4)",
-      [user.username, user.displayName || null, passwordHash, user.role]
+      "INSERT INTO users (username, display_name, date_of_birth, password_hash, role) VALUES ($1, $2, $3::date, $4, $5)",
+      [user.username, user.displayName || null, user.dateOfBirth, passwordHash, user.role]
     );
   }
 
